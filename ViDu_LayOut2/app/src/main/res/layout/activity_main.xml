@@ -11,7 +11,7 @@
         android:layout_height="100dp"
         android:gravity="center"
         android:textSize="30dp"
-        android:text="Chao Mung">
+        android:text="Chào Mừng 30/4">
     </TextView>
     <LinearLayout
         android:layout_width="match_parent"
@@ -19,6 +19,7 @@
         android:gravity="center"
         android:background="#F4DFB7"
         android:paddingBottom="10dp"
+        android:paddingTop="10dp"
         android:textSize="30dp"
         >
 
@@ -39,23 +40,27 @@
             android:text="CN2">
         </Button>
     </LinearLayout>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="150dp"
+        android:background="#CCC"
         android:gravity="center"
-        android:background="#CCC">
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp">
+
         <Button
-            android:layout_width="100dp"
-            android:layout_height="100dp"
             android:id="@+id/btnCN4"
-            android:layout_weight="2"
-            android:layout_margin="10dp"
-            android:text="CN3">
-        </Button>
-        <Button
             android:layout_width="100dp"
             android:layout_height="100dp"
+            android:layout_margin="10dp"
+            android:layout_weight="2"
+            android:text="CN3"></Button>
+
+        <Button
             android:id="@+id/btnCN5"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
             android:layout_margin="10dp"
             android:layout_weight="2"
             android:text="CN4">
