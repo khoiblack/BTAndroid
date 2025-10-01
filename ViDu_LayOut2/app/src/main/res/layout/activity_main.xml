@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:id="@+id/mainlayout"
+    android:background="#FFF">
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:gravity="center"
+        android:textSize="30dp"
+        android:text="Chao Mung">
+    </TextView>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:gravity="center"
+        android:background="#F4DFB7"
+        android:paddingBottom="10dp"
+        android:textSize="30dp"
+        >
+
+        <Button
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_weight="2"
+            android:id="@+id/btnCN3"
+            android:layout_margin="10dp"
+            android:text="CN1">
+        </Button>
+        <Button
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_weight="2"
+            android:id="@+id/btnCN2"
+            android:layout_margin="10dp"
+            android:text="CN2">
+        </Button>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:gravity="center"
+        android:background="#CCC">
+        <Button
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:id="@+id/btnCN4"
+            android:layout_weight="2"
+            android:layout_margin="10dp"
+            android:text="CN3">
+        </Button>
+        <Button
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:id="@+id/btnCN5"
+            android:layout_margin="10dp"
+            android:layout_weight="2"
+            android:text="CN4">
+    </LinearLayout>
+</LinearLayout>
+    schemas.android.com
