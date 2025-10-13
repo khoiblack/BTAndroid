@@ -1,4 +1,4 @@
-package th.nguyenhuutrong.Lab1_Aboutme;
+package TH.caitrandangkhoi.Lab1_Aboutme;
 
 import android.content.Context;
 
@@ -21,6 +21,6 @@ public class ExampleInstrumentedTest {
     public void useAppContext() {
         // Context of the app under test.
         Context appContext = InstrumentationRegistry.getInstrumentation().getTargetContext();
-        assertEquals("th.nguyenhuutrong.th_simple_layout_2", appContext.getPackageName());
+        assertEquals("th.caitrandangkhoi.th_simple_layout_2", appContext.getPackageName());
     }
 }

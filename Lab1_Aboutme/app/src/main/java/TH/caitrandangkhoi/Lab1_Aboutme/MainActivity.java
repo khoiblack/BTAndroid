@@ -1,4 +1,4 @@
-package th.nguyenhuutrong.Lab1_Aboutme;
+package TH.caitrandangkhoi.Lab1_Aboutme;
 
 import android.os.Bundle;
 
