@@ -1,51 +1,152 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    android:fillViewport="true"
+    android:background="#F4F6F8"
+    android:padding="24dp"
+    tools:context=".Func1Activity">
 
-    <!--
-      ĐÃ SỬA LỖI CHO BẠN:
-      1. Thêm android:id="@+id/header_layout"
-      2. Đổi layout_width="0dp" (thay vì match_parent, để dùng constraint)
-      3. Thêm 3 constraint (top, start, end) để neo nó vào cạnh trên.
-      Nếu không có 3 constraint này, FrameLayout sẽ bay về góc 0,0.
-    -->
-    <FrameLayout
-        android:id="@+id/header_layout"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
-        <!-- View nền nằm dưới -->
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="130dp"
-            android:background="@drawable/bg_card" />
+        <!-- 1. TIÊU ĐỀ -->
+        <TextView
+            android:id="@+id/tvTitleBmi"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Tính Chỉ Số BMI"
+            android:fontFamily="@font/montserrat_bold"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            android:textColor="#333333"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="8dp"/>
 
-        <!-- Logo nằm trên -->
-        <ImageView
-            android:layout_width="112dp"
-            android:layout_height="60dp"
-            android:layout_gravity="start|center_vertical"
-            android:layout_marginBottom="16dp"
-            android:layout_marginStart="16dp"
-            android:contentDescription="Logo"
-            android:src="@drawable/logo_ntu"
-            android:visibility="visible" />
+        <!-- 2. Ô NHẬP CÂN NẶNG (kg) -->
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/til_weight"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:hint="Cân nặng (kg)"
+            app:layout_constraintTop_toBottomOf="@id/tvTitleBmi"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent">
 
-    </FrameLayout>
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/et_weight"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/montserrat_bold"
+                android:inputType="numberDecimal"
+                android:ems="10"/>
+        </com.google.android.material.textfield.TextInputLayout>
 
-    <!--
-      ĐÃ THÊM:
-      Một LinearLayout để chứa các nút, được neo BÊN DƯỚI header_layout
-    -->
+        <!-- 3. Ô NHẬP CHIỀU CAO (cm) -->
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/til_height"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:hint="Chiều cao (cm)"
+            app:layout_constraintTop_toBottomOf="@id/til_weight"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent">
 
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/et_height"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/montserrat_bold"
+                android:inputType="numberDecimal"
+                android:ems="10"/>
+        </com.google.android.material.textfield.TextInputLayout>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <!-- 4. NÚT TÍNH TOÁN -->
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnCalculateBmi"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="TÍNH TOÁN"
+            android:fontFamily="@font/montserrat_bold"
+            android:textStyle="bold"
+            android:paddingTop="12dp"
+            android:paddingBottom="12dp"
+            android:layout_marginTop="24dp"
+            app:layout_constraintTop_toBottomOf="@id/til_height"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"/>
+
+        <!-- 5. KHUNG KẾT QUẢ (Ẩn lúc đầu) -->
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/cardResult"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:cardCornerRadius="12dp"
+            app:cardElevation="4dp"
+            android:layout_marginTop="32dp"
+            app:layout_constraintTop_toBottomOf="@id/btnCalculateBmi"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:visibility="gone"
+            tools:visibility="visible">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="16dp"
+                android:gravity="center">
+
+                <TextView
+                    android:id="@+id/tvBmiScore"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    tools:text="22.5"
+                    android:textSize="34sp"
+                    android:textColor="#333333"
+                    android:fontFamily="@font/montserrat_bold"
+                    android:textStyle="bold"/>
+
+                <TextView
+                    android:id="@+id/tvBmiCategory"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    tools:text="Bình thường"
+                    android:textSize="18sp"
+                    android:textColor="#555555"
+                    android:fontFamily="@font/montserrat_bold"
+                    android:layout_marginTop="8dp"/>
+
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <!-- 6. NÚT QUAY LẠI -->
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnBackBmi"
+            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Quay lại"
+            android:fontFamily="@font/montserrat_bold"
+            android:textStyle="bold"
+            android:layout_marginTop="32dp"
+            app:layout_constraintTop_toBottomOf="@id/cardResult"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintVertical_bias="1.0" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</ScrollView>
 

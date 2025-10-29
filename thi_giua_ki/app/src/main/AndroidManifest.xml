@@ -27,6 +27,9 @@
         <activity android:name=".ExtraActivity"
             android:label="Làm thêm"
             android:parentActivityName=".MainActivity" />
+        <activity android:name=".Func1Activity"
+                  android:label="BMI"
+            android:parentActivityName=".MainActivity" />
     </application>
 
 </manifest>

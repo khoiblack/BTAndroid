@@ -7,13 +7,7 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <!--
-      ĐÃ SỬA LỖI CHO BẠN:
-      1. Thêm android:id="@+id/header_layout"
-      2. Đổi layout_width="0dp" (thay vì match_parent, để dùng constraint)
-      3. Thêm 3 constraint (top, start, end) để neo nó vào cạnh trên.
-      Nếu không có 3 constraint này, FrameLayout sẽ bay về góc 0,0.
-    -->
+
     <FrameLayout
         android:id="@+id/header_layout"
         android:layout_width="0dp"
