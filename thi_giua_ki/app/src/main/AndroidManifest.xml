@@ -27,8 +27,11 @@
         <activity android:name=".ExtraActivity"
             android:label="Làm thêm"
             android:parentActivityName=".MainActivity" />
-        <activity android:name=".Func1Activity"
+        <activity android:name=".BMIActivity"
                   android:label="BMI"
+            android:parentActivityName=".MainActivity" />
+        <activity android:name=".MonAnActivity"
+            android:label="BMI"
             android:parentActivityName=".MainActivity" />
     </application>
 

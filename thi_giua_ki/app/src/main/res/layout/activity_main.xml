@@ -7,13 +7,7 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <!--
-      ĐÃ SỬA LỖI CHO BẠN:
-      1. Thêm android:id="@+id/header_layout"
-      2. Đổi layout_width="0dp" (thay vì match_parent, để dùng constraint)
-      3. Thêm 3 constraint (top, start, end) để neo nó vào cạnh trên.
-      Nếu không có 3 constraint này, FrameLayout sẽ bay về góc 0,0.
-    -->
+
     <FrameLayout
         android:id="@+id/header_layout"
         android:layout_width="0dp"
@@ -23,28 +17,27 @@
         app:layout_constraintEnd_toEndOf="parent">
 
         <!-- View nền nằm dưới -->
+
+        <!-- Logo nằm trên -->
         <View
             android:layout_width="match_parent"
             android:layout_height="130dp"
             android:background="@drawable/bg_card" />
 
-        <!-- Logo nằm trên -->
         <ImageView
-            android:layout_width="112dp"
-            android:layout_height="60dp"
+            android:layout_width="395dp"
+            android:layout_height="90dp"
             android:layout_gravity="start|center_vertical"
-            android:layout_marginBottom="16dp"
             android:layout_marginStart="16dp"
+            android:layout_marginLeft="100dp"
+            android:layout_marginBottom="16dp"
             android:contentDescription="Logo"
             android:src="@drawable/logo_ntu"
             android:visibility="visible" />
 
     </FrameLayout>
 
-    <!--
-      ĐÃ THÊM:
-      Một LinearLayout để chứa các nút, được neo BÊN DƯỚI header_layout
-    -->
+
     <LinearLayout
         android:id="@+id/button_container"
         android:layout_width="0dp"

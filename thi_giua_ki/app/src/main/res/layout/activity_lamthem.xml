@@ -23,11 +23,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginTop="8dp"/>
 
-    <!-- 2. NÂNG CẤP Ô NHẬP LIỆU (Material Design) -->
-    <!--
-      - Đã bọc EditText bằng TextInputLayout để có viền bo góc.
-      - Đã chuyển 'hint' từ EditText sang TextInputLayout.
-    -->
+
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/textInputLayout"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
@@ -40,10 +36,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/button">
 
-        <!--
-          - Đã đổi font sang 'montserrat' (thường) để dễ đọc.
-          - Đã đổi thành 'TextInputEditText' (bắt buộc khi dùng TextInputLayout).
-        -->
+
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/editText"
             android:layout_width="match_parent"
@@ -55,10 +48,7 @@
     </com.google.android.material.textfield.TextInputLayout>
 
 
-    <!-- 3. THỐNG NHẤT NÚT BẤM (MaterialButton) -->
-    <!--
-      - Đã đổi từ <Button> cũ sang <MaterialButton> mới.
-      - Đã neo Top/Bottom vào ô nhập liệu để tự động căn giữa.
+
     -->
     <com.google.android.material.button.MaterialButton
         android:id="@+id/button"
@@ -72,10 +62,7 @@
         app:layout_constraintBottom_toBottomOf="@id/textInputLayout" />
 
 
-    <!-- 4. KHUNG KẾT QUẢ (ScrollView) -->
-    <!--
-      - Đã neo lại vào 'textInputLayout' (thay vì 'editText').
-    -->
+
     <ScrollView
         android:id="@+id/scrollView"
         android:layout_width="0dp"
@@ -89,11 +76,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent">
 
-        <!-- 5. KẾT QUẢ (TextView) -->
-        <!--
-          - ĐÃ SỬA FONT: Đổi từ 'montserrat_bold' sang 'montserrat' (thường).
-          - Giúp người dùng đọc kết quả dễ dàng hơn.
-        -->
+
         <TextView
             android:id="@+id/textView"
             android:layout_width="match_parent"
@@ -104,7 +87,7 @@
 
     </ScrollView>
 
-    <!-- 6. NÚT QUAY LẠI (Giữ nguyên) -->
+
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btnBackExtra"
         style="@style/Widget.MaterialComponents.Button.OutlinedButton"

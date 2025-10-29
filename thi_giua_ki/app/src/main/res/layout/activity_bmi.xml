@@ -8,7 +8,7 @@
     android:fillViewport="true"
     android:background="#F4F6F8"
     android:padding="24dp"
-    tools:context=".Func1Activity">
+    tools:context=".BMIActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
