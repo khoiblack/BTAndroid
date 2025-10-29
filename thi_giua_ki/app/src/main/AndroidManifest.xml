@@ -20,6 +20,13 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".AboutMeActivity"
+            android:label="Về tôi"
+            android:parentActivityName=".MainActivity" />
+        <activity android:name=".ExtraActivity"
+            android:label="Làm thêm"
+            android:parentActivityName=".MainActivity" />
     </application>
 
 </manifest>

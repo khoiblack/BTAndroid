@@ -7,13 +7,125 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <TextView
-        android:layout_width="wrap_content"
+    <!--
+      ĐÃ SỬA LỖI CHO BẠN:
+      1. Thêm android:id="@+id/header_layout"
+      2. Đổi layout_width="0dp" (thay vì match_parent, để dùng constraint)
+      3. Thêm 3 constraint (top, start, end) để neo nó vào cạnh trên.
+      Nếu không có 3 constraint này, FrameLayout sẽ bay về góc 0,0.
+    -->
+    <FrameLayout
+        android:id="@+id/header_layout"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="Hello World!"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <!-- View nền nằm dưới -->
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="130dp"
+            android:background="@drawable/bg_card" />
+
+        <!-- Logo nằm trên -->
+        <ImageView
+            android:layout_width="112dp"
+            android:layout_height="60dp"
+            android:layout_gravity="start|center_vertical"
+            android:layout_marginBottom="16dp"
+            android:layout_marginStart="16dp"
+            android:contentDescription="Logo"
+            android:src="@drawable/logo_ntu"
+            android:visibility="visible" />
+
+    </FrameLayout>
+
+    <!--
+      ĐÃ THÊM:
+      Một LinearLayout để chứa các nút, được neo BÊN DƯỚI header_layout
+    -->
+    <LinearLayout
+        android:id="@+id/button_container"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp"
+        android:gravity="center_horizontal"
+
+        app:layout_constraintTop_toBottomOf="@id/header_layout"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="24dp">
+
+        <!-- Nút 1 -->
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnFunc1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="BMI"
+            android:fontFamily="@font/montserrat_bold"
+            android:textStyle="bold"
+            app:cornerRadius="20dp"
+            android:paddingVertical="12dp"
+            android:layout_marginBottom="12dp"
+            />
+
+        <!-- Nút 2 -->
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnFunc2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Món ĂN"
+            android:fontFamily="@font/montserrat_bold"
+            android:textStyle="bold"
+            app:cornerRadius="20dp"
+            android:paddingVertical="12dp"
+            android:layout_marginBottom="12dp"
+            />
+
+        <!-- Nút 3 -->
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnFunc3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Bài Thuốc"
+            android:fontFamily="@font/montserrat_bold"
+            android:textStyle="bold"
+            app:cornerRadius="20dp"
+            android:paddingVertical="12dp"
+            android:layout_marginBottom="12dp"
+            />
+
+        <!-- Nút 4: About Me -->
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnAboutMe"
+            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Aboutme"
+            android:fontFamily="@font/montserrat_bold"
+            android:textStyle="bold"
+            app:cornerRadius="20dp"
+            android:paddingVertical="12dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="12dp"
+            />
+
+        <!-- Nút 5: Làm thêm -->
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnExtra"
+            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Làm thêm"
+            android:fontFamily="@font/montserrat_bold"
+            android:textStyle="bold"
+            app:cornerRadius="20dp"
+            android:paddingVertical="12dp"
+            />
+
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
+
