@@ -1,0 +1,37 @@
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- Khi được focus -->
+    <item android:state_focused="true">
+        <shape android:shape="rectangle">
+            <gradient
+                android:startColor="#E3F2FD"
+                android:endColor="#FFFFFF"
+                android:angle="270" />
+            <stroke android:width="2dp" android:color="#2196F3"/>
+            <corners android:radius="14dp"/>
+            <padding
+                android:left="12dp"
+                android:right="12dp"
+                android:top="8dp"
+                android:bottom="8dp" />
+        </shape>
+    </item>
+
+    <!-- Trạng thái bình thường -->
+    <item>
+        <shape android:shape="rectangle">
+            <gradient
+                android:startColor="#FFFFFF"
+                android:endColor="#F9FBFC"
+                android:angle="270" />
+            <stroke android:width="1dp" android:color="#B0BEC5"/>
+            <corners android:radius="14dp"/>
+            <padding
+                android:left="12dp"
+                android:right="12dp"
+                android:top="8dp"
+                android:bottom="8dp" />
+        </shape>
+    </item>
+
+</selector>
