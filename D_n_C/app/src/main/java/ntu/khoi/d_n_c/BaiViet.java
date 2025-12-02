@@ -1,5 +1,4 @@
 package ntu.khoi.d_n_c;
-
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 import com.google.gson.annotations.SerializedName;

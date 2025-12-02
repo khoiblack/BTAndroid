@@ -34,7 +34,7 @@ android {
 }
 
 dependencies {
-    // Thư viện mặc định của Android (Giữ nguyên hoặc cập nhật nếu cần)
+    // Thư viện mặc định (Giữ nguyên)
     implementation("androidx.appcompat:appcompat:1.6.1")
     implementation("com.google.android.material:material:1.10.0")
     implementation("androidx.constraintlayout:constraintlayout:2.1.4")
@@ -42,21 +42,21 @@ dependencies {
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
 
-    // --- CÁC THƯ VIỆN CẦN THÊM VÀO ---
+    // --- SỬA CÁC DÒNG DƯỚI ĐÂY THÀNH NGOẶC KÉP VÀ CÓ NGOẶC ĐƠN ---
 
-    // 1. Retrofit & Gson (Dùng để tải dữ liệu từ mạng về)
+    // 1. Retrofit & Gson
     implementation("com.squareup.retrofit2:retrofit:2.9.0")
     implementation("com.squareup.retrofit2:converter-gson:2.9.0")
 
-    // 2. Glide (Dùng để hiển thị ảnh từ link)
+    // 2. Glide
     implementation("com.github.bumptech.glide:glide:4.16.0")
     annotationProcessor("com.github.bumptech.glide:compiler:4.16.0")
 
-    // 3. ViewModel & LiveData (Giúp quản lý dữ liệu thông minh hơn)
+    // 3. ViewModel & LiveData
     implementation("androidx.lifecycle:lifecycle-viewmodel:2.6.2")
     implementation("androidx.lifecycle:lifecycle-livedata:2.6.2")
 
-    // 4. Room Database (Lưu tin tức vào máy để đọc offline)
+    // 4. Room Database
     implementation("androidx.room:room-runtime:2.6.1")
     annotationProcessor("androidx.room:room-compiler:2.6.1")
 }

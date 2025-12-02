@@ -1,24 +1,47 @@
 package ntu.khoi.d_n_c;
 
-import android.os.Bundle;
-
-import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
+import android.os.Bundle;
+import android.widget.Toast;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 public class MainActivity extends AppCompatActivity {
+
+    private TinTucViewModel viewModel;
+    private BoChuyenDoiTinTuc boChuyenDoi;
+    private RecyclerView rvDanhSachTin;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        EdgeToEdge.enable(this);
-        setContentView(R.layout.activity_main);
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
-            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
-            return insets;
+        // Nhớ đổi tên file layout XML thành giao_dien_chinh
+        setContentView(R.layout.giao_dien_chinh);
+
+        // 1. Cài đặt danh sách (RecyclerView)
+        rvDanhSachTin = findViewById(R.id.rvDanhSachTin);
+        boChuyenDoi = new BoChuyenDoiTinTuc();
+        rvDanhSachTin.setAdapter(boChuyenDoi);
+        rvDanhSachTin.setLayoutManager(new LinearLayoutManager(this));
+
+        // 2. Kết nối ViewModel
+        viewModel = new ViewModelProvider(this).get(TinTucViewModel.class);
+
+        // 3. Gọi API lấy tin tức Việt Nam (vn)
+        viewModel.taiTinTuc("vn");
+
+        // 4. Lắng nghe dữ liệu trả về
+        viewModel.layDanhSachTin().observe(this, danhSachBaiViet -> {
+            if (danhSachBaiViet != null) {
+                boChuyenDoi.capNhatDanhSach(danhSachBaiViet);
+            }
+        });
+
+        // 5. Xử lý khi bấm vào bài viết
+        boChuyenDoi.datSuKienClick(baiViet -> {
+            viewModel.luuBaiViet(baiViet);
+            Toast.makeText(this, "Đã lưu: " + baiViet.getTieuDe(), Toast.LENGTH_SHORT).show();
         });
     }
 }
