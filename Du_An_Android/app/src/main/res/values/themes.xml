@@ -1,0 +1,9 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <style name="Base.Theme.Du_An_Android" parent="Theme.Material3.DayNight.NoActionBar">
+
+
+        <item name="android:fontFamily">@font/nunito_bold</item>
+    </style>
+
+    <style name="Theme.Du_An_Android" parent="Base.Theme.Du_An_Android" />
+</resources>
