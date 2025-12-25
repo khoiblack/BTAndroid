@@ -1,69 +1,94 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:gravity="center"
-    android:padding="24dp"
-    android:background="#F0F4C3">
+    android:fillViewport="true"
+    android:background="#E8F5E9"
+    tools:context=".MainActivity">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="MATH QUIZ"
-        android:textSize="40sp"
-        android:textStyle="bold"
-        android:textColor="#33691E"
-        android:layout_marginBottom="40dp"/>
-
-    <com.google.android.material.textfield.TextInputLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Nhập tên của bạn">
+        android:orientation="vertical"
+        android:gravity="center_horizontal"
+        android:padding="24dp">
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/etName"
+        <TextView
+            android:id="@+id/tvTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="MATH QUIZ"
+            android:textSize="42sp"
+            android:textStyle="bold"
+            android:textColor="#1B5E20"
+            android:fontFamily="@font/nunito_bold"
+            android:layout_marginBottom="32dp" />
+
+        <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="text|textCapWords"
-            android:singleLine="true"/>
-    </com.google.android.material.textfield.TextInputLayout>
+            android:hint="Nhập tên của bạn"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            app:boxBackgroundMode="outline"
+            app:boxStrokeColor="#4CAF50"
+            app:boxStrokeWidth="2dp"
+            app:boxCornerRadiusTopStart="16dp"
+            app:boxCornerRadiusTopEnd="16dp"
+            app:boxCornerRadiusBottomStart="16dp"
+            app:boxCornerRadiusBottomEnd="16dp">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Chọn cấp độ:"
-        android:layout_gravity="start"
-        android:layout_marginTop="20dp"
-        android:textSize="16sp"/>
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="text|textCapWords"
+                android:fontFamily="@font/nunito_bold"
+                android:singleLine="true"/>
+        </com.google.android.material.textfield.TextInputLayout>
 
-    <Spinner
-        android:id="@+id/spinnerLevel"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:background="@android:drawable/btn_dropdown"
-        android:layout_marginBottom="30dp"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Chọn cấp độ"
+            android:textSize="18sp"
+            android:textColor="#2E7D32"
+            android:fontFamily="@font/nunito_bold"
+            android:textStyle="bold"
+            android:layout_marginTop="24dp"
+            android:layout_marginBottom="8dp"/>
 
-    <Button
-        android:id="@+id/btnStart"
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:text="Bắt đầu chơi"
-        android:textSize="18sp"
-        android:textStyle="bold"
-        android:backgroundTint="#689F38"/>
+        <Spinner
+            android:id="@+id/spinnerLevel"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="@android:drawable/btn_dropdown"
+            android:layout_marginBottom="16dp"/>
 
+        <Button
+            android:id="@+id/btnStart"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:text="BẮT ĐẦU CHƠI"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:textColor="#FFFFFF"
+            android:backgroundTint="#43A047"
+            android:fontFamily="@font/nunito_bold"
+            android:layout_marginTop="24dp"/>
 
-    <Button
-        android:id="@+id/btnViewScoreMain"
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:layout_marginTop="16dp"
-        android:backgroundTint="#FF9800"
-        android:fontFamily="@font/nunito_bold"
-        android:text="Xem Bảng Xếp Hạng"
-        android:textSize="18sp"
-        android:textStyle="bold" />
+        <Button
+            android:id="@+id/btnViewScoreMain"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:text="XEM BẢNG XẾP HẠNG"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:textColor="#FFFFFF"
+            android:backgroundTint="#FF9800"
+            android:fontFamily="@font/nunito_bold"
+            android:layout_marginTop="16dp"/>
 
-</LinearLayout>
-
+    </LinearLayout>
+</ScrollView>

@@ -5,10 +5,11 @@ import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
 
-@Database(entities = {Score.class}, version = 1)
+@Database(entities = {Score.class, User.class}, version = 2)
 public abstract class AppDatabase extends RoomDatabase {
 
     public abstract ScoreDao scoreDao();
+    public abstract UserDao userDao();
 
     private static AppDatabase INSTANCE;
 
