@@ -24,29 +24,19 @@
             android:textStyle="bold"
             android:textColor="#1B5E20"
             android:fontFamily="@font/nunito_bold"
-            android:layout_marginBottom="32dp" />
+            android:layout_marginBottom="16dp" />
 
-        <com.google.android.material.textfield.TextInputLayout
+        <TextView
+            android:id="@+id/tvWelcome"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Nhập tên của bạn"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            app:boxBackgroundMode="outline"
-            app:boxStrokeColor="#4CAF50"
-            app:boxStrokeWidth="2dp"
-            app:boxCornerRadiusTopStart="16dp"
-            app:boxCornerRadiusTopEnd="16dp"
-            app:boxCornerRadiusBottomStart="16dp"
-            app:boxCornerRadiusBottomEnd="16dp">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/etName"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="text|textCapWords"
-                android:fontFamily="@font/nunito_bold"
-                android:singleLine="true"/>
-        </com.google.android.material.textfield.TextInputLayout>
+            android:text="Xin chào, User"
+            android:gravity="center"
+            android:textSize="22sp"
+            android:textColor="#388E3C"
+            android:textStyle="italic"
+            android:fontFamily="@font/nunito_bold"
+            android:layout_marginBottom="24dp"/>
 
         <TextView
             android:layout_width="wrap_content"
@@ -89,6 +79,15 @@
             android:backgroundTint="#FF9800"
             android:fontFamily="@font/nunito_bold"
             android:layout_marginTop="16dp"/>
+
+        <Button
+            android:id="@+id/btnLogout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Đăng xuất"
+            android:textColor="#FFFFFF"
+            android:backgroundTint="#F44336"
+            android:layout_marginTop="20dp"/>
 
     </LinearLayout>
 </ScrollView>

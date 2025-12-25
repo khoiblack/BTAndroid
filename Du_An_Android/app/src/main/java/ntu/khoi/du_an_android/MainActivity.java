@@ -1,42 +1,50 @@
 package ntu.khoi.du_an_android;
 
 import android.content.Intent;
-import android.content.SharedPreferences; // 1. Import thư viện này
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 public class MainActivity extends AppCompatActivity {
 
-    EditText etName;
     Spinner spinnerLevel;
-    Button btnStart;
-    Button btnViewScoreMain;
+    Button btnStart, btnViewScoreMain, btnLogout;
+    TextView tvWelcome; // Biến hiển thị lời chào
+    String loggedInUser; // Biến lưu tên người dùng hiện tại
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        etName = findViewById(R.id.etName);
+        // 1. Ánh xạ View
+        tvWelcome = findViewById(R.id.tvWelcome);
         spinnerLevel = findViewById(R.id.spinnerLevel);
         btnStart = findViewById(R.id.btnStart);
         btnViewScoreMain = findViewById(R.id.btnViewScoreMain);
+        btnLogout = findViewById(R.id.btnLogout); // Nút đăng xuất mới thêm
 
-        // --- NÂNG CẤP 1: TỰ ĐỘNG ĐIỀN TÊN CŨ (NẾU CÓ) ---
-        // Mở "cuốn sổ" có tên là MyPrefs
-        SharedPreferences prefs = getSharedPreferences("MyPrefs", MODE_PRIVATE);
-        // Lấy tên đã lưu với chìa khóa "LAST_NAME", nếu chưa có thì để trống ""
-        String lastUser = prefs.getString("LAST_NAME", "");
-        // Điền sẵn vào ô nhập
-        etName.setText(lastUser);
-        // ------------------------------------------------
+        // 2. Nhận tên người dùng từ LoginActivity gửi sang
+        Intent receivedIntent = getIntent();
+        if (receivedIntent != null) {
+            loggedInUser = receivedIntent.getStringExtra("LOGGED_IN_USER");
+        }
 
+        // Nếu không lấy được tên (trường hợp lỗi), gán mặc định
+        if (loggedInUser == null || loggedInUser.isEmpty()) {
+            loggedInUser = "Player";
+        }
+
+        // 3. Hiển thị lời chào
+        tvWelcome.setText("Xin chào, " + loggedInUser + "!");
+
+        // 4. Cài đặt Spinner (Level)
         String[] levels = {"Easy", "Normal", "Hard"};
         ArrayAdapter<String> adapter = new ArrayAdapter<>(
                 this,
@@ -45,37 +53,36 @@ public class MainActivity extends AppCompatActivity {
         );
         spinnerLevel.setAdapter(adapter);
 
+        // 5. Sự kiện nút Bắt đầu
         btnStart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String name = etName.getText().toString().trim();
-
-                if (name.isEmpty()) {
-                    etName.setError("Vui lòng nhập tên để chơi!");
-                    return;
-                }
-
-                // --- NÂNG CẤP 2: LƯU TÊN VỪA NHẬP LẠI ---
-                SharedPreferences.Editor editor = prefs.edit();
-                editor.putString("LAST_NAME", name); // Lưu tên với chìa khóa "LAST_NAME"
-                editor.apply(); // Xác nhận lưu
-                // ----------------------------------------
-
+                // Không cần kiểm tra nhập tên nữa vì đã đăng nhập rồi
                 String selectedLevel = spinnerLevel.getSelectedItem().toString();
 
                 Intent intent = new Intent(MainActivity.this, QuizActivity.class);
-                intent.putExtra("USER_NAME", name);
+                intent.putExtra("USER_NAME", loggedInUser); // Truyền tên người dùng đăng nhập
                 intent.putExtra("LEVEL", selectedLevel);
                 startActivity(intent);
             }
         });
 
+        // 6. Sự kiện nút Xem bảng xếp hạng
         btnViewScoreMain.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this, ScoreboardActivity.class);
                 startActivity(intent);
             }
+        });
+
+        // 7. Sự kiện nút Đăng xuất
+        btnLogout.setOnClickListener(v -> {
+            // Quay về màn hình đăng nhập
+            Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+            startActivity(intent);
+            finish(); // Đóng MainActivity lại
+            Toast.makeText(MainActivity.this, "Đã đăng xuất!", Toast.LENGTH_SHORT).show();
         });
     }
 }
