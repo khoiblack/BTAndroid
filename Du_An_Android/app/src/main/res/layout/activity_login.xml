@@ -29,7 +29,7 @@
         android:background="@drawable/bg_input_border"
         android:paddingStart="20dp"
         android:paddingEnd="20dp"
-        
+
         android:drawablePadding="10dp"
         android:drawableTint="@color/accent_orange"
         android:singleLine="true"
