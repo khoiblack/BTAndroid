@@ -1,10 +1,17 @@
 package ntu.khoi.du_an_android;
 
+import android.app.Dialog; // Import Dialog
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
+import android.media.AudioManager;
+import android.media.ToneGenerator;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.view.View;
+import android.view.Window;
 import android.widget.Button;
+import android.widget.ImageView; // Import ImageView cho nút Pause
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -13,13 +20,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Random;
-import android.media.AudioManager;
-import android.media.ToneGenerator;
 
 public class QuizActivity extends AppCompatActivity {
 
     TextView tvTimer, tvQuestion, tvScoreInfo;
     Button btnOp1, btnOp2, btnOp3, btnOp4;
+    ImageView btnPause; // Khai báo nút Pause (đã đổi từ Button sang ImageView cho đẹp)
+
     ToneGenerator toneGen;
 
     String userName, level;
@@ -28,11 +35,14 @@ public class QuizActivity extends AppCompatActivity {
     int wrongCount = 0;
     int totalQuestions = 0;
 
-    long timeLimit; // Thời gian cho mỗi câu
+    // --- BIẾN CHO ĐỒNG HỒ ---
+    long initialTime;      // Thời gian gốc của mỗi câu (ví dụ 10s)
+    long timeLeftInMillis; // Thời gian thực tế còn lại (để dùng khi Pause)
     CountDownTimer timer;
+
     Random random = new Random();
-    int correctAnswer; // Lưu đáp án đúng (dùng cho trắc nghiệm)
-    boolean isMathCorrect; // Lưu trạng thái Đúng/Sai (dùng cho câu hỏi True/False)
+    int correctAnswer;
+    boolean isMathCorrect;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,12 +53,15 @@ public class QuizActivity extends AppCompatActivity {
         tvTimer = findViewById(R.id.tvTimer);
         tvQuestion = findViewById(R.id.tvQuestion);
         tvScoreInfo = findViewById(R.id.tvScoreInfo);
+
         btnOp1 = findViewById(R.id.btnOp1);
         btnOp2 = findViewById(R.id.btnOp2);
         btnOp3 = findViewById(R.id.btnOp3);
         btnOp4 = findViewById(R.id.btnOp4);
 
-        // Khởi tạo bộ âm thanh
+        btnPause = findViewById(R.id.btnPause); // Ánh xạ nút Pause
+
+        // Khởi tạo âm thanh
         try {
             toneGen = new ToneGenerator(AudioManager.STREAM_MUSIC, 100);
         } catch (Exception e) {
@@ -59,13 +72,55 @@ public class QuizActivity extends AppCompatActivity {
         userName = getIntent().getStringExtra("USER_NAME");
         level = getIntent().getStringExtra("LEVEL");
 
-        // 3. Cài đặt độ khó
-        if (level.equals("Easy")) timeLimit = 12000;
-        else if (level.equals("Normal")) timeLimit = 10000;
-        else timeLimit = 8000;
+        // 3. Cài đặt thời gian theo độ khó (Lưu vào initialTime)
+        if (level.equals("Easy")) initialTime = 12000;      // 12 giây
+        else if (level.equals("Normal")) initialTime = 10000; // 10 giây
+        else initialTime = 8000;                            // 8 giây
 
-        // 4. Bắt đầu game
+        // 4. Sự kiện nút Pause
+        btnPause.setOnClickListener(v -> showPauseDialog());
+
+        // 5. Bắt đầu game
         generateQuestion();
+    }
+
+    // --- HÀM HIỆN DIALOG PAUSE ---
+    private void showPauseDialog() {
+        // A. Dừng đồng hồ lại
+        if (timer != null) {
+            timer.cancel();
+        }
+
+        // B. Tạo Dialog
+        final Dialog dialog = new Dialog(this);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setContentView(R.layout.dialog_pause); // File xml dialog bạn vừa tạo
+
+        // Làm nền trong suốt để bo góc đẹp
+        if (dialog.getWindow() != null) {
+            dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        }
+
+        // Không cho bấm ra ngoài để tắt
+        dialog.setCancelable(false);
+
+        // C. Ánh xạ nút trong Dialog
+        Button btnExit = dialog.findViewById(R.id.btnExitGame);
+        Button btnResume = dialog.findViewById(R.id.btnResumeGame);
+
+        // D. Xử lý nút RESUME (Chơi tiếp)
+        btnResume.setOnClickListener(v -> {
+            dialog.dismiss(); // Tắt dialog
+            startTimer(timeLeftInMillis); // Chạy lại timer từ mốc thời gian cũ
+        });
+
+        // E. Xử lý nút EXIT (Thoát game)
+        btnExit.setOnClickListener(v -> {
+            dialog.dismiss();
+            finish(); // Đóng màn hình Quiz
+        });
+
+        dialog.show();
     }
 
     private void generateQuestion() {
@@ -76,9 +131,12 @@ public class QuizActivity extends AppCompatActivity {
         }
 
         totalQuestions++;
-        startTimer(); // Bắt đầu đếm ngược
 
-        // --- SINH SỐ NGẪU NHIÊN ---
+        // --- CẬP NHẬT TIMER ---
+        timeLeftInMillis = initialTime; // Reset thời gian về mức ban đầu
+        startTimer(timeLeftInMillis);   // Bắt đầu đếm
+
+        // --- SINH SỐ NGẪU NHIÊN (Code cũ giữ nguyên) ---
         int num1 = 0, num2 = 0;
         if (level.equals("Easy")) {
             num1 = random.nextInt(10) + 1;
@@ -104,21 +162,47 @@ public class QuizActivity extends AppCompatActivity {
             case 3: result = num1; num1 = result * num2; operatorSymbol = "/"; break;
         }
 
-        // --- QUYẾT ĐỊNH LOẠI CÂU HỎI (50/50) ---
-        int questionType = random.nextInt(2); // 0 hoặc 1
+        // --- QUYẾT ĐỊNH LOẠI CÂU HỎI ---
+        int questionType = random.nextInt(2);
 
         if (questionType == 0) {
-            // === DẠNG 1: TRẮC NGHIỆM 4 ĐÁP ÁN ===
             setupMultipleChoice(num1, num2, operatorSymbol, result);
         } else {
-            // === DẠNG 2: ĐÚNG / SAI ===
             setupTrueFalse(num1, num2, operatorSymbol, result);
         }
     }
 
-    // --- XỬ LÝ DẠNG TRẮC NGHIỆM ---
+    // --- HÀM TIMER MỚI (Hỗ trợ Pause) ---
+    private void startTimer(long duration) {
+        if (timer != null) timer.cancel();
+
+        timer = new CountDownTimer(duration, 1000) {
+            @Override
+            public void onTick(long millisUntilFinished) {
+                timeLeftInMillis = millisUntilFinished; // Cập nhật liên tục
+
+                // Format thành 00:09, 00:08...
+                long seconds = millisUntilFinished / 1000;
+                tvTimer.setText(String.format("00:%02d", seconds));
+            }
+
+            @Override
+            public void onFinish() {
+                timeLeftInMillis = 0;
+                tvTimer.setText("00:00");
+
+                // Xử lý khi hết giờ
+                wrongCount++;
+                if(toneGen != null) toneGen.startTone(ToneGenerator.TONE_CDMA_LOW_L, 200);
+                Toast.makeText(QuizActivity.this, "Hết giờ!", Toast.LENGTH_SHORT).show();
+                nextQuestionDelayed();
+            }
+        }.start();
+    }
+
+    // --- CÁC HÀM XỬ LÝ LOGIC GAME (Giữ nguyên) ---
+
     private void setupMultipleChoice(int n1, int n2, String op, int res) {
-        // Hiện đủ 4 nút
         btnOp1.setVisibility(View.VISIBLE);
         btnOp2.setVisibility(View.VISIBLE);
         btnOp3.setVisibility(View.VISIBLE);
@@ -127,7 +211,6 @@ public class QuizActivity extends AppCompatActivity {
         tvQuestion.setText(n1 + " " + op + " " + n2 + " = ?");
         correctAnswer = res;
 
-        // Tạo đáp án nhiễu
         ArrayList<Integer> answers = new ArrayList<>();
         answers.add(res);
         while (answers.size() < 4) {
@@ -143,15 +226,12 @@ public class QuizActivity extends AppCompatActivity {
         btnOp3.setText(String.valueOf(answers.get(2)));
         btnOp4.setText(String.valueOf(answers.get(3)));
 
-        // Gán sự kiện click cho Trắc nghiệm
         View.OnClickListener listener = v -> {
             Button b = (Button) v;
             try {
                 int selected = Integer.parseInt(b.getText().toString());
                 checkAnswerMultipleChoice(selected);
-            } catch (NumberFormatException e) {
-                // Phòng hờ lỗi ép kiểu
-            }
+            } catch (NumberFormatException e) { }
         };
         btnOp1.setOnClickListener(listener);
         btnOp2.setOnClickListener(listener);
@@ -159,22 +239,18 @@ public class QuizActivity extends AppCompatActivity {
         btnOp4.setOnClickListener(listener);
     }
 
-    // --- XỬ LÝ DẠNG ĐÚNG/SAI ---
     private void setupTrueFalse(int n1, int n2, String op, int res) {
-        // Ẩn 2 nút dưới, chỉ dùng 2 nút trên
         btnOp1.setVisibility(View.VISIBLE);
         btnOp2.setVisibility(View.VISIBLE);
-        btnOp3.setVisibility(View.GONE);
+        btnOp3.setVisibility(View.GONE); // Ẩn nút 3, 4
         btnOp4.setVisibility(View.GONE);
 
-        // Tung đồng xu xem hiển thị phép tính Đúng hay Sai
         isMathCorrect = random.nextBoolean();
         int displayResult;
 
         if (isMathCorrect) {
-            displayResult = res; // Hiển thị kết quả đúng
+            displayResult = res;
         } else {
-            // Hiển thị kết quả sai
             do {
                 displayResult = res + random.nextInt(10) - 5;
             } while (displayResult == res);
@@ -182,11 +258,9 @@ public class QuizActivity extends AppCompatActivity {
 
         tvQuestion.setText(n1 + " " + op + " " + n2 + " = " + displayResult);
 
-        // Gán chữ cho nút
         btnOp1.setText("Đúng");
         btnOp2.setText("Sai");
 
-        // Gán sự kiện click cho Đúng/Sai
         View.OnClickListener listener = v -> {
             Button b = (Button) v;
             checkAnswerTrueFalse(b.getText().toString());
@@ -195,9 +269,8 @@ public class QuizActivity extends AppCompatActivity {
         btnOp2.setOnClickListener(listener);
     }
 
-    // --- KIỂM TRA ĐÁP ÁN TRẮC NGHIỆM ---
     private void checkAnswerMultipleChoice(int selected) {
-        timer.cancel();
+        timer.cancel(); // Dừng đồng hồ
         if (selected == correctAnswer) {
             processCorrect();
         } else {
@@ -206,9 +279,8 @@ public class QuizActivity extends AppCompatActivity {
         nextQuestionDelayed();
     }
 
-    // --- KIỂM TRA ĐÁP ÁN ĐÚNG/SAI ---
     private void checkAnswerTrueFalse(String selectedText) {
-        timer.cancel();
+        timer.cancel(); // Dừng đồng hồ
         boolean userChoseCorrect = false;
 
         if (selectedText.equals("Đúng") && isMathCorrect) userChoseCorrect = true;
@@ -222,48 +294,25 @@ public class QuizActivity extends AppCompatActivity {
         nextQuestionDelayed();
     }
 
-    // Hàm xử lý chung khi Đúng
     private void processCorrect() {
         currentScore += 10;
         correctCount++;
         if(toneGen != null) toneGen.startTone(ToneGenerator.TONE_PROP_BEEP, 150);
         Toast.makeText(this, "Chính xác!", Toast.LENGTH_SHORT).show();
-        tvScoreInfo.setText("Score: " + currentScore);
+        tvScoreInfo.setText("Score " + currentScore);
     }
 
-    // Hàm xử lý chung khi Sai
     private void processWrong(String msg) {
         wrongCount++;
         if(toneGen != null) toneGen.startTone(ToneGenerator.TONE_CDMA_LOW_L, 200);
         Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
-        tvScoreInfo.setText("Score: " + currentScore);
+        tvScoreInfo.setText("Score " + currentScore);
     }
 
-    // Đồng hồ đếm ngược
-    private void startTimer() {
-        if (timer != null) timer.cancel();
-        timer = new CountDownTimer(timeLimit, 1000) {
-            @Override
-            public void onTick(long millisUntilFinished) {
-                tvTimer.setText("Time: " + millisUntilFinished / 1000 + "s");
-            }
-
-            @Override
-            public void onFinish() {
-                wrongCount++;
-                if(toneGen != null) toneGen.startTone(ToneGenerator.TONE_CDMA_LOW_L, 200);
-                Toast.makeText(QuizActivity.this, "Hết giờ!", Toast.LENGTH_SHORT).show();
-                nextQuestionDelayed();
-            }
-        }.start();
-    }
-
-    // Chuyển câu hỏi (có delay 1 giây)
     private void nextQuestionDelayed() {
         new android.os.Handler().postDelayed(() -> generateQuestion(), 1000);
     }
 
-    // Kết thúc game
     private void gameOver() {
         if(timer != null) timer.cancel();
 

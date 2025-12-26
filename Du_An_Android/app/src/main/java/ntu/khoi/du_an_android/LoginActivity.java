@@ -48,6 +48,21 @@ public class LoginActivity extends AppCompatActivity {
             } else {
                 Toast.makeText(this, "Sai tài khoản hoặc mật khẩu!", Toast.LENGTH_SHORT).show();
             }
+            if(userObj != null) {
+                // --- THÊM ĐOẠN NÀY ---
+                // Lưu tên người dùng vào bộ nhớ tạm (Session)
+                android.content.SharedPreferences prefs = getSharedPreferences("UserSession", MODE_PRIVATE);
+                android.content.SharedPreferences.Editor editor = prefs.edit();
+                editor.putString("KEY_USERNAME", user); // Lưu user vào khóa KEY_USERNAME
+                editor.apply();
+                // ---------------------
+
+                Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                // Không cần putExtra nữa cũng được, nhưng để nguyên cũng không sao
+                intent.putExtra("LOGGED_IN_USER", user);
+                startActivity(intent);
+                finish();
+            }
         });
 
         // Xử lý nút Chuyển sang Đăng ký

@@ -8,4 +8,10 @@
     <color name="text_hint">#B0BEC5</color>
     <color name="btn_beige">#FFF3E0</color>
     <color name="text_dark">#212121</color>
+    <color name="dialog_bg">#607D8B</color>
+    <color name="item_bg_teal">#004D40</color>
+    <color name="text_green">#00E676</color>
+    <color name="text_yellow">#FFEA00</color>
+    <color name="text_orange">#FF3D00</color>
+    <color name="text_white">#FFFFFF</color>
 </resources>

@@ -72,7 +72,7 @@
             android:id="@+id/btnViewScoreMain"
             android:layout_width="match_parent"
             android:layout_height="60dp"
-            android:text="XEM BẢNG XẾP HẠNG"
+            android:text="XEM LỊCH SỬ LẦN CHƠI"
             android:textSize="18sp"
             android:textStyle="bold"
             android:textColor="#FFFFFF"

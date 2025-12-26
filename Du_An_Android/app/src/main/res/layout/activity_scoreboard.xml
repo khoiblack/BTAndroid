@@ -1,35 +1,47 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:background="#F5F5F5">
-
+    android:background="@color/bg_dark">
     <TextView
+        android:id="@+id/tvHeader"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="BẢNG XẾP HẠNG"
+        android:text="GAME HISTORY"
+        android:textSize="28sp"
+        android:textStyle="bold"
+        android:textColor="@color/white"
         android:gravity="center"
         android:padding="20dp"
-        android:textSize="24sp"
-        android:textStyle="bold"
-        android:background="#FFC107"
-        android:textColor="#FFFFFF"/>
+        android:background="#232532"/>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvScore"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:padding="8dp"/>
+        android:layout_height="match_parent"
+        android:layout_below="@id/tvHeader"
+        android:layout_above="@id/bottomBar"
+        android:paddingTop="10dp"
+        android:clipToPadding="false"/>
 
-    <Button
-        android:id="@+id/btnBack"
+    <LinearLayout
+        android:id="@+id/bottomBar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Quay lại trang chủ"
-        android:layout_margin="16dp"
-        android:backgroundTint="#607D8B"
-        android:textSize="18sp"/>
+        android:layout_height="60dp"
+        android:orientation="horizontal"
+        android:layout_alignParentBottom="true"
+        android:background="#1A1B25"
+        android:gravity="center"
+        android:weightSum="3">
 
-</LinearLayout>
+        <ImageView
+            android:id="@+id/btnHomeNav"
+            android:layout_width="0dp"
+            android:layout_height="30dp"
+            android:layout_weight="1"
+            android:src="@drawable/ic_home"
+            app:tint="@color/white"/>
+    </LinearLayout>
+
+</RelativeLayout>

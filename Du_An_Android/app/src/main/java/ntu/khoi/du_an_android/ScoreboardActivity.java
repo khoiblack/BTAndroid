@@ -2,7 +2,7 @@ package ntu.khoi.du_an_android;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.widget.Button; // Nhớ import dòng này
+import android.widget.ImageView; // Nhớ import ImageView
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -14,41 +14,40 @@ public class ScoreboardActivity extends AppCompatActivity {
 
     RecyclerView rvScore;
     ScoreAdapter scoreAdapter;
-    Button btnBack; // Khai báo biến
+
+    // 1. Khai báo biến cho nút Home
+    ImageView btnHomeNav;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_scoreboard);
 
-        // 1. Ánh xạ (Tìm View trong XML)
+        // Ánh xạ RecyclerView (giữ nguyên code cũ của bạn)
         rvScore = findViewById(R.id.rvScore);
-        btnBack = findViewById(R.id.btnBack);
-
-        // 2. Kiểm tra xem có tìm thấy nút không (Debug an toàn)
-        if (btnBack == null) {
-            // Nếu vào đây nghĩa là XML chưa có id btnBack
-            return;
-        }
-
         rvScore.setLayoutManager(new LinearLayoutManager(this));
-
-        // 3. Load dữ liệu
         loadData();
 
-        // 4. Bắt sự kiện click
-        btnBack.setOnClickListener(v -> {
+        // 2. Ánh xạ nút Home từ XML (ID: btnHomeNav)
+        btnHomeNav = findViewById(R.id.btnHomeNav);
+
+        // 3. Bắt sự kiện Click để quay về MainActivity
+        btnHomeNav.setOnClickListener(v -> {
             Intent intent = new Intent(ScoreboardActivity.this, MainActivity.class);
-            // Dòng lệnh quan trọng: Xóa sạch các Activity cũ (Quiz, Result) để làm mới lại từ đầu
+
+            // Lệnh này quan trọng: Xóa các màn hình cũ để khi về Home bấm Back sẽ thoát App
+            // chứ không quay lại màn hình Scoreboard nữa.
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+
             startActivity(intent);
-            finish();
+            finish(); // Đóng màn hình Scoreboard hiện tại
         });
     }
 
     private void loadData() {
+        // Code load dữ liệu cũ của bạn giữ nguyên
         List<Score> listScore = AppDatabase.getDbInstance(this).scoreDao().getAllScores();
-        scoreAdapter = new ScoreAdapter(listScore);
+        scoreAdapter = new ScoreAdapter(listScore, this); // Nhớ truyền context nếu adapter yêu cầu
         rvScore.setAdapter(scoreAdapter);
     }
 }

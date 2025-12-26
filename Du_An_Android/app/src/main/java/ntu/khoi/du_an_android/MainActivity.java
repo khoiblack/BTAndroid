@@ -30,19 +30,16 @@ public class MainActivity extends AppCompatActivity {
         btnViewScoreMain = findViewById(R.id.btnViewScoreMain);
         btnLogout = findViewById(R.id.btnLogout); // Nút đăng xuất mới thêm
 
-        // 2. Nhận tên người dùng từ LoginActivity gửi sang
-        Intent receivedIntent = getIntent();
-        if (receivedIntent != null) {
-            loggedInUser = receivedIntent.getStringExtra("LOGGED_IN_USER");
-        }
+        // --- SỬA ĐOẠN LẤY TÊN ---
+        // 1. Mở bộ nhớ tạm ra
+        android.content.SharedPreferences prefs = getSharedPreferences("UserSession", MODE_PRIVATE);
 
-        // Nếu không lấy được tên (trường hợp lỗi), gán mặc định
-        if (loggedInUser == null || loggedInUser.isEmpty()) {
-            loggedInUser = "Player";
-        }
+        // 2. Lấy tên ra (Nếu không tìm thấy thì mặc định là "Player")
+        loggedInUser = prefs.getString("KEY_USERNAME", "Player");
 
-        // 3. Hiển thị lời chào
+        // 3. Hiển thị
         tvWelcome.setText("Xin chào, " + loggedInUser + "!");
+        // ------------------------
 
         // 4. Cài đặt Spinner (Level)
         String[] levels = {"Easy", "Normal", "Hard"};
@@ -78,10 +75,14 @@ public class MainActivity extends AppCompatActivity {
 
         // 7. Sự kiện nút Đăng xuất
         btnLogout.setOnClickListener(v -> {
-            // Quay về màn hình đăng nhập
+            // Khi đăng xuất, phải XÓA tên trong bộ nhớ đi
+            android.content.SharedPreferences.Editor editor = prefs.edit();
+            editor.clear(); // Xóa sạch
+            editor.apply();
+
             Intent intent = new Intent(MainActivity.this, LoginActivity.class);
             startActivity(intent);
-            finish(); // Đóng MainActivity lại
+            finish();
             Toast.makeText(MainActivity.this, "Đã đăng xuất!", Toast.LENGTH_SHORT).show();
         });
     }
