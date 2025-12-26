@@ -6,4 +6,6 @@
     <color name="accent_orange">#FF6F61</color>
     <color name="border_yellow">#FFD54F</color>
     <color name="text_hint">#B0BEC5</color>
+    <color name="btn_beige">#FFF3E0</color>
+    <color name="text_dark">#212121</color>
 </resources>

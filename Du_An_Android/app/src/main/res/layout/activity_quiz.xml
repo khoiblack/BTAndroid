@@ -3,99 +3,117 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:padding="16dp"
-    android:gravity="center_horizontal"
-    android:background="#E1F5FE">
+    android:padding="24dp"
+    android:background="@color/bg_dark"> <LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:gravity="center_vertical"
+    android:layout_marginBottom="30dp">
 
-    <LinearLayout
-        android:layout_width="match_parent"
+    <ImageView
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:src="@drawable/ic_timer"
+
+        xmlns:app="http://schemas.android.com/apk/res-auto"/>
+
+    <TextView
+        android:id="@+id/tvTimer"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:weightSum="2">
-        <TextView
-            android:id="@+id/tvScoreInfo"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Score: 0"
-            android:textSize="18sp"
-            android:textStyle="bold"/>
-        <TextView
-            android:id="@+id/tvTimer"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Time: 10s"
-            android:textAlignment="viewEnd"
-            android:textSize="18sp"
-            android:textColor="#D32F2F"
-            android:textStyle="bold"/>
-    </LinearLayout>
+        android:text="00:10"
+        android:textColor="@color/white"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:layout_marginStart="8dp"/>
 
-    <Space
-        android:layout_width="match_parent"
-        android:layout_height="50dp"/>
+    <View
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_weight="1"/>
+
+    <TextView
+        android:id="@+id/tvScoreInfo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Score 4"
+        android:textColor="@color/white"
+        android:textSize="20sp"
+        android:textStyle="bold"/>
+
+    <View
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_weight="1"/>
+
+    <ImageView
+        android:id="@+id/btnPause"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:src="@drawable/ic_pause"
+
+        xmlns:app="http://schemas.android.com/apk/res-auto"/>
+</LinearLayout>
 
     <TextView
         android:id="@+id/tvQuestion"
         android:layout_width="match_parent"
-        android:layout_height="150dp"
-        android:text="5 + 5 = ?"
+        android:layout_height="180dp"
+        android:text="7 + 1 / 5"
         android:gravity="center"
-        android:textSize="40sp"
+        android:textSize="48sp"
         android:textStyle="bold"
-        android:background="#FFFFFF"
-        android:elevation="4dp"/>
-
-    <Space
+        android:textColor="@color/white"
+        android:background="@drawable/bg_button_orange"
+        android:layout_marginBottom="40dp"
+        android:elevation="6dp"/>
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btnOp1"
         android:layout_width="match_parent"
-        android:layout_height="30dp"/>
+        android:layout_height="70dp"
+        android:text="1.2"
+        android:textSize="28sp"
+        android:textStyle="bold"
+        android:textColor="@color/text_dark"
+        android:background="@drawable/bg_button_beige"
+        android:layout_marginBottom="16dp"
+        android:textAllCaps="false"/>
 
-    <LinearLayout
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btnOp2"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:weightSum="2"
-        android:layout_marginBottom="10dp">
-        <Button
-            android:id="@+id/btnOp1"
-            android:layout_width="0dp"
-            android:layout_height="80dp"
-            android:layout_weight="1"
-            android:text="10"
-            android:textSize="24sp"
-            android:layout_marginEnd="8dp"/>
-        <Button
-            android:id="@+id/btnOp2"
-            android:layout_width="0dp"
-            android:layout_height="80dp"
-            android:layout_weight="1"
-            android:text="12"
-            android:textSize="24sp"
-            android:layout_marginStart="8dp"/>
-    </LinearLayout>
+        android:layout_height="70dp"
+        android:text="7.2"
+        android:textSize="28sp"
+        android:textStyle="bold"
+        android:textColor="@color/text_dark"
+        android:background="@drawable/bg_button_beige"
+        android:layout_marginBottom="16dp"
+        android:textAllCaps="false"/>
 
-    <LinearLayout
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btnOp3"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:weightSum="2">
-        <Button
-            android:id="@+id/btnOp3"
-            android:layout_width="0dp"
-            android:layout_height="80dp"
-            android:layout_weight="1"
-            android:text="8"
-            android:textSize="24sp"
-            android:layout_marginEnd="8dp"/>
-        <Button
-            android:id="@+id/btnOp4"
-            android:layout_width="0dp"
-            android:layout_height="80dp"
-            android:layout_weight="1"
-            android:text="15"
-            android:textSize="24sp"
-            android:layout_marginStart="8dp"/>
-    </LinearLayout>
+        android:layout_height="70dp"
+        android:text="15.2"
+        android:textSize="28sp"
+        android:textStyle="bold"
+        android:textColor="@color/text_dark"
+        android:background="@drawable/bg_button_beige"
+        android:layout_marginBottom="16dp"
+        android:textAllCaps="false"/>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btnOp4"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:text="11.2"
+        android:textSize="28sp"
+        android:textStyle="bold"
+        android:textColor="@color/text_dark"
+        android:background="@drawable/bg_button_beige"
+        android:layout_marginBottom="16dp"
+        android:textAllCaps="false"/>
 
 </LinearLayout>
