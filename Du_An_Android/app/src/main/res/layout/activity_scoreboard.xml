@@ -4,6 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/bg_dark">
+
     <TextView
         android:id="@+id/tvHeader"
         android:layout_width="match_parent"
@@ -33,15 +34,25 @@
         android:layout_alignParentBottom="true"
         android:background="#1A1B25"
         android:gravity="center"
-        android:weightSum="3">
+        android:weightSum="2"> <ImageView
+        android:id="@+id/btnHomeNav"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:src="@drawable/ic_home"
+        app:tint="#B0BEC5"
+        android:padding="12dp"
+        android:background="?attr/selectableItemBackgroundBorderless"/>
 
         <ImageView
-            android:id="@+id/btnHomeNav"
+            android:id="@+id/btnHistoryNav"
             android:layout_width="0dp"
-            android:layout_height="30dp"
+            android:layout_height="match_parent"
             android:layout_weight="1"
-            android:src="@drawable/ic_home"
-            app:tint="@color/white"/>
+            android:src="@drawable/ic_history"
+            app:tint="#FF9800"
+            android:padding="12dp"
+            android:background="?attr/selectableItemBackgroundBorderless"/>
     </LinearLayout>
 
 </RelativeLayout>

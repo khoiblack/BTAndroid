@@ -1,55 +1,87 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:padding="24dp"
-    android:gravity="center_horizontal"
-    android:background="#FFF9C4">
+    android:background="#FFF9C4"> <ScrollView
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_above="@id/bottomBarResult"
+    android:fillViewport="true">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="KẾT QUẢ"
-        android:textSize="36sp"
-        android:textStyle="bold"
-        android:textColor="#FBC02D"
-        android:layout_marginTop="30dp"/>
-
-    <TextView
-        android:id="@+id/tvResultDetails"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Đang tải..."
-        android:textSize="20sp"
-        android:lineSpacingExtra="8dp"
-        android:layout_marginTop="30dp"
-        android:background="#FFFFFF"
-        android:padding="20dp"/>
+        android:orientation="vertical"
+        android:padding="24dp"
+        android:gravity="center_horizontal">
 
-    <Space
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="KẾT QUẢ"
+            android:textSize="36sp"
+            android:textStyle="bold"
+            android:textColor="#FBC02D"
+            android:layout_marginTop="30dp"/>
+
+        <TextView
+            android:id="@+id/tvResultDetails"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Đang tải..."
+            android:textSize="20sp"
+            android:lineSpacingExtra="8dp"
+            android:layout_marginTop="30dp"
+            android:background="#FFFFFF"
+            android:padding="20dp"
+            android:elevation="4dp"/>
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="40dp"/>
+
+        <Button
+            android:id="@+id/btnReplay"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:text="CHƠI LẠI"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:backgroundTint="#4CAF50"/>
+
+    </LinearLayout>
+</ScrollView>
+
+    <LinearLayout
+        android:id="@+id/bottomBarResult"
         android:layout_width="match_parent"
-        android:layout_height="40dp"/>
+        android:layout_height="60dp"
+        android:orientation="horizontal"
+        android:layout_alignParentBottom="true"
+        android:background="#1A1B25"
+        android:gravity="center"
+        android:weightSum="2">
 
-    <Button
-        android:id="@+id/btnReplay"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Chơi lại"
-        android:backgroundTint="#4CAF50"/>
+        <ImageView
+            android:id="@+id/btnHomeNavResult"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:src="@drawable/ic_home"
+            app:tint="#B0BEC5"
+            android:padding="12dp"
+            android:background="?attr/selectableItemBackgroundBorderless"/>
 
-    <Button
-        android:id="@+id/btnHome"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Về trang chủ"
-        android:backgroundTint="#2196F3"/>
+        <ImageView
+            android:id="@+id/btnHistoryNavResult"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:src="@drawable/ic_history"
+            app:tint="#B0BEC5"
+            android:padding="12dp"
+            android:background="?attr/selectableItemBackgroundBorderless"/>
+    </LinearLayout>
 
-    <Button
-        android:id="@+id/btnViewScore"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Xem Lịch Sử Lần Chơi"
-        android:backgroundTint="#FF9800"/>
-
-</LinearLayout>
+</RelativeLayout>

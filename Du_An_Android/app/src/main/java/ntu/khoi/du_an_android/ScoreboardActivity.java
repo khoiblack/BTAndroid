@@ -2,7 +2,7 @@ package ntu.khoi.du_an_android;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.widget.ImageView; // Nhớ import ImageView
+import android.widget.ImageView; // Import ImageView
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -14,40 +14,41 @@ public class ScoreboardActivity extends AppCompatActivity {
 
     RecyclerView rvScore;
     ScoreAdapter scoreAdapter;
-
-    // 1. Khai báo biến cho nút Home
-    ImageView btnHomeNav;
+    // Khai báo 2 nút điều hướng
+    ImageView btnHomeNav, btnHistoryNav;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_scoreboard);
 
-        // Ánh xạ RecyclerView (giữ nguyên code cũ của bạn)
         rvScore = findViewById(R.id.rvScore);
         rvScore.setLayoutManager(new LinearLayoutManager(this));
         loadData();
 
-        // 2. Ánh xạ nút Home từ XML (ID: btnHomeNav)
+        // 1. Ánh xạ 2 nút
         btnHomeNav = findViewById(R.id.btnHomeNav);
+        btnHistoryNav = findViewById(R.id.btnHistoryNav);
 
-        // 3. Bắt sự kiện Click để quay về MainActivity
+        // 2. Xử lý nút HOME: Quay về màn hình chính
         btnHomeNav.setOnClickListener(v -> {
             Intent intent = new Intent(ScoreboardActivity.this, MainActivity.class);
-
-            // Lệnh này quan trọng: Xóa các màn hình cũ để khi về Home bấm Back sẽ thoát App
-            // chứ không quay lại màn hình Scoreboard nữa.
+            // Xóa lịch sử để khi bấm Back ở Main không quay lại đây
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
-
             startActivity(intent);
-            finish(); // Đóng màn hình Scoreboard hiện tại
+            finish();
+        });
+
+        // 3. Xử lý nút HISTORY: Không làm gì cả vì đang ở đây rồi
+        btnHistoryNav.setOnClickListener(v -> {
+            // Có thể thêm Toast thông báo nhỏ nếu muốn
+            // Toast.makeText(this, "Bạn đang ở màn hình Lịch sử", Toast.LENGTH_SHORT).show();
         });
     }
 
     private void loadData() {
-        // Code load dữ liệu cũ của bạn giữ nguyên
         List<Score> listScore = AppDatabase.getDbInstance(this).scoreDao().getAllScores();
-        scoreAdapter = new ScoreAdapter(listScore, this); // Nhớ truyền context nếu adapter yêu cầu
+        scoreAdapter = new ScoreAdapter(listScore, this);
         rvScore.setAdapter(scoreAdapter);
     }
 }
