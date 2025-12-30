@@ -4,7 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageView; // Nhớ import ImageView
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -17,7 +17,7 @@ public class ResultActivity extends AppCompatActivity {
 
     TextView tvResultDetails;
     Button btnReplay;
-    // Thay 2 Button cũ bằng ImageView mới
+
     ImageView btnHomeNavResult, btnHistoryNavResult;
 
     @Override
@@ -25,20 +25,18 @@ public class ResultActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_result);
 
-        // 1. Ánh xạ View
+
         tvResultDetails = findViewById(R.id.tvResultDetails);
         btnReplay = findViewById(R.id.btnReplay);
-
-        // Ánh xạ 2 nút điều hướng mới
         btnHomeNavResult = findViewById(R.id.btnHomeNavResult);
         btnHistoryNavResult = findViewById(R.id.btnHistoryNavResult);
 
-        // 2. Nhận dữ liệu từ QuizActivity (Giữ nguyên)
+
         String name = getIntent().getStringExtra("USER_NAME");
         String level = getIntent().getStringExtra("LEVEL");
         int[] stats = getIntent().getIntArrayExtra("SCORE_OBJ");
 
-        // 3. Hiển thị thông tin (Giữ nguyên)
+
         if (stats != null) {
             String resultText = "Người chơi: " + name + "\n" +
                     "Cấp độ: " + level + "\n" +
@@ -49,11 +47,11 @@ public class ResultActivity extends AppCompatActivity {
                     "Tổng số câu: " + stats[3];
             tvResultDetails.setText(resultText);
 
-            // Lưu vào Database
+
             saveScoreToDB(name, level, stats);
         }
 
-        // 4. Xử lý nút CHƠI LẠI (Giữ nguyên)
+
         btnReplay.setOnClickListener(v -> {
             Intent intent = new Intent(ResultActivity.this, QuizActivity.class);
             intent.putExtra("USER_NAME", name);
@@ -62,7 +60,7 @@ public class ResultActivity extends AppCompatActivity {
             finish();
         });
 
-        // 5. Xử lý nút HOME (Icon ngôi nhà)
+
         btnHomeNavResult.setOnClickListener(v -> {
             Intent intent = new Intent(ResultActivity.this, MainActivity.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -70,14 +68,13 @@ public class ResultActivity extends AppCompatActivity {
             finish();
         });
 
-        // 6. Xử lý nút HISTORY (Icon đồng hồ)
+
         btnHistoryNavResult.setOnClickListener(v -> {
             Intent intent = new Intent(ResultActivity.this, ScoreboardActivity.class);
             startActivity(intent);
-            // Không cần finish() ở đây nếu bạn muốn người dùng có thể bấm Back quay lại xem kết quả
+
         });
     }
-
     private void saveScoreToDB(String name, String level, int[] stats) {
         Score scoreObj = new Score(
                 name,

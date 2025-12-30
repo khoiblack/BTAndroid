@@ -2,7 +2,7 @@ package ntu.khoi.du_an_android;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.widget.Button; // Import Button
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
@@ -13,22 +13,20 @@ public class LoginActivity extends AppCompatActivity {
 
     EditText etUser, etPass;
     Button btnLogin;
-    Button btnRegisterNav; // Đổi từ TextView thành Button
+    Button btnRegisterNav;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        // Ánh xạ
+
         etUser = findViewById(R.id.etUsernameLogin);
         etPass = findViewById(R.id.etPasswordLogin);
         btnLogin = findViewById(R.id.btnLogin);
-
-        // Ánh xạ nút Register mới
         btnRegisterNav = findViewById(R.id.btnRegisterNav);
 
-        // Xử lý nút Đăng nhập (Giữ nguyên logic cũ)
+
         btnLogin.setOnClickListener(v -> {
             String user = etUser.getText().toString().trim();
             String pass = etPass.getText().toString().trim();
@@ -49,23 +47,22 @@ public class LoginActivity extends AppCompatActivity {
                 Toast.makeText(this, "Sai tài khoản hoặc mật khẩu!", Toast.LENGTH_SHORT).show();
             }
             if(userObj != null) {
-                // --- THÊM ĐOẠN NÀY ---
-                // Lưu tên người dùng vào bộ nhớ tạm (Session)
+
                 android.content.SharedPreferences prefs = getSharedPreferences("UserSession", MODE_PRIVATE);
                 android.content.SharedPreferences.Editor editor = prefs.edit();
-                editor.putString("KEY_USERNAME", user); // Lưu user vào khóa KEY_USERNAME
+                editor.putString("KEY_USERNAME", user);
                 editor.apply();
-                // ---------------------
+
 
                 Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                // Không cần putExtra nữa cũng được, nhưng để nguyên cũng không sao
+
                 intent.putExtra("LOGGED_IN_USER", user);
                 startActivity(intent);
                 finish();
             }
         });
 
-        // Xử lý nút Chuyển sang Đăng ký
+
         btnRegisterNav.setOnClickListener(v -> {
             Intent intent = new Intent(LoginActivity.this, RegisterActivity.class);
             startActivity(intent);

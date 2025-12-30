@@ -8,7 +8,7 @@ import androidx.annotation.NonNull;
 public class User {
     @PrimaryKey
     @NonNull
-    public String username; // Dùng tên đăng nhập làm khóa chính (không trùng nhau)
+    public String username;
     public String password;
 
     public User(@NonNull String username, String password) {

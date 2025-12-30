@@ -6,7 +6,7 @@ import androidx.room.Query;
 
 @Dao
 public interface UserDao {
-    // Đăng ký tài khoản mới
+
     @Insert
     void registerUser(User user);
 

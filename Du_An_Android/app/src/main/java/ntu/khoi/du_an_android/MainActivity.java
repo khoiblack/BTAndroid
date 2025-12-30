@@ -16,7 +16,6 @@ public class MainActivity extends AppCompatActivity {
 
     Spinner spinnerLevel;
     Button btnStart;
-
     ImageView btnLogout, btnHomeNavMain, btnHistoryNavMain;
     TextView tvWelcome;
     String loggedInUser;
@@ -25,14 +24,12 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        // 1. Ánh xạ View
+        
         tvWelcome = findViewById(R.id.tvWelcome);
         spinnerLevel = findViewById(R.id.spinnerLevel);
         btnStart = findViewById(R.id.btnStart);
         btnLogout = findViewById(R.id.btnLogout);
 
-        // Ánh xạ 2 nút điều hướng mới
         btnHomeNavMain = findViewById(R.id.btnHomeNavMain);
         btnHistoryNavMain = findViewById(R.id.btnHistoryNavMain);
 
@@ -52,8 +49,6 @@ public class MainActivity extends AppCompatActivity {
 
         spinnerLevel.setAdapter(adapter);
 
-
-        // Sự kiện nút Bắt đầu (Giữ nguyên)
         btnStart.setOnClickListener(v -> {
             String selectedLevel = spinnerLevel.getSelectedItem().toString();
             Intent intent = new Intent(MainActivity.this, QuizActivity.class);
@@ -61,8 +56,6 @@ public class MainActivity extends AppCompatActivity {
             intent.putExtra("LEVEL", selectedLevel);
             startActivity(intent);
         });
-
-        // --- XỬ LÝ THANH ĐIỀU HƯỚNG ---
 
         btnHomeNavMain.setOnClickListener(v -> { });
 

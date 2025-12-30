@@ -18,7 +18,7 @@ import ntu.khoi.du_an_android.database.Score;
 public class ScoreAdapter extends RecyclerView.Adapter<ScoreAdapter.ScoreViewHolder> {
 
     private List<Score> listScore;
-    private Context context; // Thêm biến context để lấy màu
+    private Context context;
 
     public ScoreAdapter(List<Score> listScore, Context context) {
         this.listScore = listScore;
@@ -36,24 +36,18 @@ public class ScoreAdapter extends RecyclerView.Adapter<ScoreAdapter.ScoreViewHol
     public void onBindViewHolder(@NonNull ScoreViewHolder holder, int position) {
         Score score = listScore.get(position);
         if (score == null) return;
-
-        // 1. Hiển thị Level và đổi màu
         holder.tvLevelName.setText(score.level);
-
         int colorResId = R.color.text_green; // Mặc định Easy
         if (score.level.equals("Normal")) colorResId = R.color.text_yellow;
         else if (score.level.equals("Hard")) colorResId = R.color.text_orange;
 
-        // Đổi màu cả chữ Level và dấu gạch chéo
         int color = ContextCompat.getColor(context, colorResId);
         holder.tvLevelName.setTextColor(color);
         holder.tvSlash.setTextColor(color);
 
-        // 2. Hiển thị Điểm
+
         holder.tvScoreVal.setText("Score: " + score.score);
 
-        // 3. Tính toán Accuracy (Độ chính xác)
-        // Công thức: (Số câu đúng / Tổng câu) * 100
         double accuracy = 0;
         if (score.totalQuestions > 0) {
             accuracy = ((double) score.correct / score.totalQuestions) * 100;

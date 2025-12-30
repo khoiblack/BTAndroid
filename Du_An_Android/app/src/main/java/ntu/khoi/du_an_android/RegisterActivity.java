@@ -21,14 +21,14 @@ public class RegisterActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
 
-        // Ánh xạ View
+
         etUser = findViewById(R.id.etUsernameReg);
         etPass = findViewById(R.id.etPasswordReg);
         etRePass = findViewById(R.id.etRePasswordReg);
         btnRegister = findViewById(R.id.btnRegisterAction);
         tvLoginLink = findViewById(R.id.tvLoginLink);
 
-        // Xử lý nút ĐĂNG KÝ
+
         btnRegister.setOnClickListener(v -> {
             String user = etUser.getText().toString().trim();
             String pass = etPass.getText().toString().trim();
@@ -44,26 +44,26 @@ public class RegisterActivity extends AppCompatActivity {
                 return;
             }
 
-            // Kiểm tra tài khoản tồn tại
+
             User existingUser = AppDatabase.getDbInstance(this).userDao().checkUserExist(user);
 
             if(existingUser != null) {
                 Toast.makeText(this, "Username này đã có người dùng!", Toast.LENGTH_SHORT).show();
             } else {
-                // Lưu User mới (Chỉ cần 2 tham số: User, Pass)
+
                 User newUser = new User(user, pass);
                 AppDatabase.getDbInstance(this).userDao().registerUser(newUser);
 
                 Toast.makeText(this, "Đăng ký thành công!", Toast.LENGTH_SHORT).show();
 
-                // Chuyển về màn hình Login
+
                 Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
                 startActivity(intent);
                 finish();
             }
         });
 
-        // Xử lý khi bấm chữ LOGIN
+
         tvLoginLink.setOnClickListener(v -> {
             Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
             startActivity(intent);
