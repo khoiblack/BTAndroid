@@ -16,8 +16,8 @@ public abstract class AppDatabase extends RoomDatabase {
     public static AppDatabase getDbInstance(Context context) {
         if(INSTANCE == null) {
             INSTANCE = Room.databaseBuilder(context.getApplicationContext(),
-                            AppDatabase.class, "MathQuizDB") // Tên file database là MathQuizDB
-                    .allowMainThreadQueries() // QUAN TRỌNG: Cho phép chạy trên luồng chính để code đơn giản hơn
+                            AppDatabase.class, "MathQuizDB")
+                    .allowMainThreadQueries()
                     .fallbackToDestructiveMigration()
                     .build();
 

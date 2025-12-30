@@ -6,17 +6,17 @@ import androidx.room.PrimaryKey;
 @Entity(tableName = "scores")
 public class Score {
     @PrimaryKey(autoGenerate = true)
-    public int id; // ID tự tăng, không cần điền
+    public int id;
 
-    public String name;       // Tên người chơi
-    public String level;      // Cấp độ (Easy, Normal...)
-    public int totalQuestions; // Tổng số câu hỏi
-    public int correct;       // Số câu đúng
-    public int wrong;         // Số câu sai
-    public int score;         // Tổng điểm
-    public long date;         // Ngày giờ chơi (lưu dạng mili-giây)
+    public String name;
+    public String level;
+    public int totalQuestions;
+    public int correct;
+    public int wrong;
+    public int score;
+    public long date;
 
-    // Constructor để tạo đối tượng nhanh
+
     public Score(String name, String level, int totalQuestions, int correct, int wrong, int score, long date) {
         this.name = name;
         this.level = level;

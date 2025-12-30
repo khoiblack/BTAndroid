@@ -6,7 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.ImageView; // Import ImageView
+import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -16,7 +16,7 @@ public class MainActivity extends AppCompatActivity {
 
     Spinner spinnerLevel;
     Button btnStart;
-    // Xóa nút btnViewScoreMain cũ, thêm 2 icon mới
+
     ImageView btnLogout, btnHomeNavMain, btnHistoryNavMain;
     TextView tvWelcome;
     String loggedInUser;
@@ -36,7 +36,7 @@ public class MainActivity extends AppCompatActivity {
         btnHomeNavMain = findViewById(R.id.btnHomeNavMain);
         btnHistoryNavMain = findViewById(R.id.btnHistoryNavMain);
 
-        // (Phần lấy tên user và cài đặt Spinner giữ nguyên...)
+
         SharedPreferences prefs = getSharedPreferences("UserSession", MODE_PRIVATE);
         loggedInUser = prefs.getString("KEY_USERNAME", "Player");
         tvWelcome.setText("Xin chào, " + loggedInUser + "!");
@@ -44,10 +44,10 @@ public class MainActivity extends AppCompatActivity {
         String[] levels = {"Easy", "Normal", "Hard"};
         ArrayAdapter<String> adapter = new ArrayAdapter<>(
                 this,
-                R.layout.item_spinner, // Layout cho dòng chữ khi CHƯA bấm (đang hiển thị)
+                R.layout.item_spinner,
                 levels
         );
-        // Layout cho danh sách xổ xuống khi ĐÃ bấm
+
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
         spinnerLevel.setAdapter(adapter);
@@ -64,17 +64,13 @@ public class MainActivity extends AppCompatActivity {
 
         // --- XỬ LÝ THANH ĐIỀU HƯỚNG ---
 
-        // Nút HOME: Không làm gì vì đang ở đây
         btnHomeNavMain.setOnClickListener(v -> { });
 
-        // Nút HISTORY: Chuyển sang màn hình Lịch sử
         btnHistoryNavMain.setOnClickListener(v -> {
             Intent intent = new Intent(MainActivity.this, ScoreboardActivity.class);
             startActivity(intent);
         });
-        // -----------------------------
 
-        // Sự kiện nút Đăng xuất (Giữ nguyên)
         btnLogout.setOnClickListener(v -> {
             SharedPreferences.Editor editor = prefs.edit();
             editor.clear();
